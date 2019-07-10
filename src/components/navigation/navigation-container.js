@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import { NavLink } from 'react-router-dom';
 
 export default class NavigationComponent extends Component {
     constructor() {
@@ -10,11 +10,23 @@ export default class NavigationComponent extends Component {
     render() {
         return(
             <div>
-                <button>Home</button>
-                <button>About</button>
-                <button>Contact</button>
-                <button>Blog</button>
-                {true ? <button>Add Blog</button> : null}
+
+                <NavLink exact to="/" activeClassName="nav-link-active">
+                    Home
+                </NavLink>
+
+                <NavLink to="/about-me" activeClassName="nav-link-active">
+                    About Me
+                </NavLink>
+
+                <NavLink to="/blog" activeClassName="nav-link-active">
+                    Blog
+                </NavLink>
+
+                <NavLink to="/contact" activeClassName="nav-link-active">
+                    contact
+                </NavLink>
+
             </div>
         )
     }

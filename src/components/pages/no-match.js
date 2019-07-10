@@ -4,10 +4,9 @@ import {Link} from 'react-router-dom';
 export default function(props) {
     return (
         <div>
-            <h3>{props.title}</h3>
-            <h4>{props.url}</h4>
+            <h2>Sorry, that page doesn't exist.</h2>
 
-            <Link to={`/portfolio/${props.slug}`}>Link</Link>
+            <Link to='/'>Homepage</Link>
         </div>
 
     );

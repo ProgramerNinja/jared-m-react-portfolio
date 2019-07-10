@@ -10,12 +10,12 @@ export default class PortfolioContainer extends Component {
             pageTitle: "Swiggity swooty i want dat booty",
             isLoading: false,
             data: [
-                { title: "Jane", category: "girl" },
-                { title: "karter", category: "boy" },
-                { title: "ross", category: "boy" },
-                { title: "jacob", category: "boy" },
-                { title: "samantha", category: "girl" },
-                { title: "more...", category: "unknown" }
+                { title: "Jane", category: "girl", slug: 'jane' },
+                { title: "Karter", category: "boy", slug: 'karter' },
+                { title: "Ross", category: "boy", slug: 'ross' },
+                { title: "Jacob", category: "boy", slug: 'Jacob' },
+                { title: "Samantha", category: "girl", slug: 'Samantha' },
+                { title: "more...", category: "unknown", slug: 'more' }
             ]
           };
 
@@ -33,7 +33,7 @@ export default class PortfolioContainer extends Component {
     portfolioItems() {
         return this.state.data.map(item => {
 
-            return <PortfolioItem title={item.title} />;
+            return (<PortfolioItem title={item.title} category={item.category} slug={item.slug} />);
         });
     }
 
@@ -47,6 +47,8 @@ export default class PortfolioContainer extends Component {
 
             <div>
                 <h1>{this.state.pageTitle}</h1>
+                
+                <h3>Jay Dawgs Friends!!!</h3>
 
             <button onClick={() => this.handleFilter('boy')}>boy</button>
             <button onClick={() => this.handleFilter('girl')}>girl</button>
