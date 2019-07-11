@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from 'axios';
 
 import PortfolioItem from "./portfolio-item";
 
@@ -7,16 +8,9 @@ export default class PortfolioContainer extends Component {
         super();
 
         this.state = {
-            pageTitle: "Swiggity swooty i want dat booty",
+            pageTitle: "Welcome to Jared's portfolio",
             isLoading: false,
-            data: [
-                { title: "Jane", category: "girl", slug: 'jane' },
-                { title: "Karter", category: "boy", slug: 'karter' },
-                { title: "Ross", category: "boy", slug: 'ross' },
-                { title: "Jacob", category: "boy", slug: 'Jacob' },
-                { title: "Samantha", category: "girl", slug: 'Samantha' },
-                { title: "more...", category: "unknown", slug: 'more' }
-            ]
+            data: []
           };
 
         this.handleFilter = this.handleFilter.bind(this);
@@ -30,11 +24,32 @@ export default class PortfolioContainer extends Component {
         })
     }
 
+    getPortfolioItems() {
+        axios
+      .get('https://avenuej.devcamp.space/portfolio/portfolio_items')
+      .then(response => {
+        this.setState({
+            data: response.data.portfolio_items
+        })
+      })
+      .catch(error => {
+        console.log(error);
+      })
+      .finally(function () {
+      });
+      }
+
     portfolioItems() {
+
+
         return this.state.data.map(item => {
 
-            return (<PortfolioItem title={item.title} category={item.category} slug={item.slug} />);
+            return (<PortfolioItem key={item.id} item={item} />);
         });
+    }
+
+    componentDidMount() {
+        this.getPortfolioItems();
     }
 
 
@@ -50,9 +65,8 @@ export default class PortfolioContainer extends Component {
                 
                 <h3>Jay Dawgs Friends!!!</h3>
 
-            <button onClick={() => this.handleFilter('boy')}>boy</button>
-            <button onClick={() => this.handleFilter('girl')}>girl</button>
-            <button onClick={() => this.handleFilter('unknown')}>unknown</button>
+            <button onClick={() => this.handleFilter('Male')}>boy</button>
+            <button onClick={() => this.handleFilter('Female')}>girl</button>
 
                 {this.portfolioItems()}
 

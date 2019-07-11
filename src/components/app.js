@@ -5,7 +5,7 @@ import {
   Switch,
   Route
 } from 'react-router-dom';
-import axios from 'axios';
+
 
 import PortfolioContainer from "./portfolio/portfolio-container"
 import NavigationContainer from "./navigation/navigation-container.js"
@@ -18,30 +18,14 @@ import NoMatch from "./pages/no-match.js"
 
 
 export default class App extends Component {
-  constructor() {
-    super();
+  
 
-    this.getPortfolioItems = this.getPortfolioItems.bind(this);
-  }
-  getPortfolioItems() {
-    axios
-  .get('https://avenuej.devcamp.space/portfolio/portfolio_items')
-  .then(response => {
-    console.log("response data", response);
-  })
-  .catch(error => {
-    console.log(error);
-  })
-  .finally(function () {
-  });
-  }
   render() {
-    this.getPortfolioItems();
     return (
       <div className='app'>
         <Router>
           <div>
-            <h1></h1>
+            <h1>Jared's Website</h1>
             <div>{moment().format('MMMM Do YYYY, h:mm:ss a')}</div>
             <NavigationContainer />
 
