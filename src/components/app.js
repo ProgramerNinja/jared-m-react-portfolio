@@ -11,6 +11,7 @@ import Home from "./pages/home.js"
 import About from "./pages/about.js"
 import Contact from "./pages/contact.js"
 import Blog from "./pages/blog.js"
+import PortfolioManager from "./pages/portfolio-manager.js"
 import PortfolioDetail from "./portfolio/portfolio-detail.js"
 import Auth from "./pages/auth";
 import NoMatch from "./pages/no-match.js"
@@ -55,7 +56,6 @@ export default class App extends Component {
       .then(response => {
         const loggedIn = response.data.logged_in;
         const loggedInStatus = this.state.loggedInStatus;
-        console.log(response, loggedIn, loggedInStatus);
 
         if (loggedIn && loggedInStatus === "LOGGED_IN") {
           return loggedIn;
@@ -81,7 +81,7 @@ export default class App extends Component {
 
   authorizedPages() {
     return [
-      <Route path="/blog" component={Blog}></Route>
+      <Route key="portfolio-manager" path="/portfolio-manager" component={PortfolioManager}></Route>
 
     ]
   }
@@ -95,8 +95,6 @@ export default class App extends Component {
               loggedInStatus={this.state.loggedInStatus}
               handleSuccessfulLogout={this.state.handleSuccessfulLogout}
             />
-
-            <h2>{this.state.loggedInStatus}</h2>
 
             <Switch>
               <Route exact path="/" component={Home}></Route>
@@ -115,7 +113,8 @@ export default class App extends Component {
 
               <Route path="/about-me" component={About}></Route>
               <Route path="/contact" component={Contact}></Route>
-              {this.state.loggedInStatus === "LOGGEDIN" ? this.authorizedPages() : null}
+              <Route path="/blog" component={Blog}></Route>
+              {this.state.loggedInStatus === "LOGGED_IN" ? this.authorizedPages() : null}
               <Route exact path="/portfolio/:slug" component={PortfolioDetail} />
               <Route component={NoMatch} />
             </Switch>
