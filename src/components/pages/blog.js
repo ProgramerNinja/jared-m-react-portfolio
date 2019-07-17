@@ -1,14 +1,66 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import axiois from 'axios';
+import Axios from "axios";
 
-export default function() {
+import BlogItem from "../blog/blog-item"
+
+class Blog extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      blogItems: [],
+      totalCount: 0,
+      currentPage: 0
+    };
+
+    this.getBlogItems = this.getBlogItems.bind(this);
+    this.activateInfiniteScroll();
+  }
+
+  activateInfiniteScroll() {
+    window.onscroll = () => {
+      console.log("innerHeight", window.innerHeight, "scrollTop", document.documentElement.scrollTop, "offsetHeight", document.documentElement.offsetHeight);
+      if (document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight) {
+        console.log("get more posts...");
+      }
+    };
+  }
+
+  getBlogItems() {
+    this.setState({
+      currentPage: this.state.currentPage = 1
+    });
+    Axios.get("https://avenuej.devcamp.space/portfolio/portfolio_blogs", 
+    {withCredentials: true}
+    ).then(response => {
+      this.setState({
+        blogItems: response.data.portfolio_blogs,
+        totalCount: response.data.meta.total_records
+      });
+    }).catch(error => {
+      console.log("getBlogItems error", error)
+    })
+  }
+
+  componentWillMount() {
+    this.getBlogItems();
+  }
+
+  render() {
+    const blogRecords = this.state.blogItems.map(blogItem => {
+      return <BlogItem key={blogItem.id} blogItem={blogItem} />
+    });
+
     return (
-        <div>
-            <h2>Blog</h2>
-
-            <div>
-                <Link to="/about-me">Read more about me</Link>
-            </div>
+      <div className="blog-container">
+        <div className="content-container">
+          {blogRecords}
         </div>
+      </div>
     );
+  }
 }
+
+export default Blog;

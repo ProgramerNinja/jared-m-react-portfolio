@@ -18,6 +18,7 @@ import Home from "./pages/home.js"
 import About from "./pages/about.js"
 import Contact from "./pages/contact.js"
 import Blog from "./pages/blog.js"
+import BlogDetail from "./pages/blog-detail"
 import PortfolioManager from "./pages/portfolio-manager.js"
 import PortfolioDetail from "./portfolio/portfolio-detail.js"
 import Auth from "./pages/auth";
@@ -122,6 +123,7 @@ export default class App extends Component {
               <Route path="/about-me" component={About}></Route>
               <Route path="/contact" component={Contact}></Route>
               <Route path="/blog" component={Blog}></Route>
+              <Route path="/b/:slug" component={BlogDetail}></Route>
               {this.state.loggedInStatus === "LOGGED_IN" ? this.authorizedPages() : null}
               <Route exact path="/portfolio/:slug" component={PortfolioDetail} />
               <Route component={NoMatch} />
