@@ -1,4 +1,4 @@
-.portfolio-form-wrapper {
+.blog-form-wrapper {
     @include base-grid();
     grid-template-columns: 1fr;
     padding: 42px;
@@ -6,5 +6,10 @@
     @include input-element();
     input {
         margin-bottom: 0px;
+    }
+
+    .image-uploaders {
+        @include base-grid();
+        grid-template-columns: 200px;
     }
 }

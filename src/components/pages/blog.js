@@ -29,7 +29,7 @@ class Blog extends Component {
   handleSuccessfulNewBlogSubmission(blog) {
     this.setState({
       blogModalIsOpen: false,
-      blogItems: [blog].concat(blogItems)
+      blogItems: [blog].concat(this.state.blogItems)
     });
   }
 
@@ -96,19 +96,21 @@ class Blog extends Component {
     return (
       <div className="blog-container">
         <BlogModal
-          modalIsOpen={this.state.blogModalIsOpen}
+          handleSuccessfulNewBlogSubmission={
+            this.handleSuccessfulNewBlogSubmission
+          }
           handleModalClose={this.handleModalClose}
-          handleSuccessfulFormSubmission={this.handleSuccessfulFormSubmission}
+          modalIsOpen={this.state.blogModalIsOpen}
         />
 
-        <div className="new-blog-link">
-          <a
-            onClick={this.handleNewBlogClick}
+        {this.props.loggedInStatus === "LOGGED_IN" ? (
+          <div className="new-blog-link">
+            <a onClick={this.handleNewBlogClick}>
+              <FontAwesomeIcon icon="plus-circle" />
+            </a>
+          </div>
+        ) : null}
 
-          >
-            open model
-          </a>
-        </div>
 
         <div className="content-container">
           {blogRecords}
